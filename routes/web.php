@@ -35,17 +35,20 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::delete('/dashboard/response/{id}', [ResponseController::class, 'destroy'])->name('dashboard.response.destroy');
 });
 
+Route::middleware(['auth','checkRole:admin'])->group(function () {
+    Route::get('/data/export-excel', [InterviewController::class, 'export'])->name('export-excel');
+    Route::get('/data/export-pdf', [InterviewController::class, 'exportPDF'])->name('export-pdf');
+    Route::get('/data', [InterviewController::class, 'dataAdmin'])->name('data.admin');
+    Route::get('/data/response', [InterviewController::class, 'data'])->name('data.response');
+    Route::get('/data/type', [InterviewController::class, 'dataType'])->name('data.type');
+
+});
+
 Route::middleware(['auth','checkRole:petugas'])->group(function () {
     Route::get('/data/response', [InterviewController::class, 'data'])->name('data.response');
     Route::get('/data/type', [InterviewController::class, 'dataType'])->name('data.type');
 
 });
 
-Route::middleware(['auth','checkRole:admin'])->group(function () {
-    Route::get('/data/export-excel', [InterviewController::class, 'export'])->name('export-excel');
-    Route::get('/data/export-pdf', [InterviewController::class, 'exportPDF'])->name('export-pdf');
-    Route::get('/data', [InterviewController::class, 'dataAdmin'])->name('data.admin');
-
-});
 
 

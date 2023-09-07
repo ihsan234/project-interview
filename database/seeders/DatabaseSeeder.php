@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'petugas',
+            'name' => 'petugas',    
             'role'=>'petugas',
             'email' => 'petugas@gmail.com',
             'password' => bcrypt('petugas123'),
